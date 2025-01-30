@@ -42,11 +42,10 @@ jobs:
 
     - name: Download File
       run: |
-        ls -l $HOME/.aws/config
-        ls -l $HOME/.aws/credentials
+        cat $HOME/.aws/config
+        cat -l $HOME/.aws/credentials
         aws s3 ls s3://$BUCKET_NAME --endpoint-url $ENDPOINT_URL
-        aws s3 ls s3://$BUCKET_NAME
-        aws s3 cp s3://$BUCKET_NAME/${{ github.event.inputs.input_file }} ./
+        aws s3 cp s3://$BUCKET_NAME/${{ github.event.inputs.input_file }} ./ --endpoint-url $ENDPOINT_URL
 
     - name: Encode File with Docker image
       run: |
