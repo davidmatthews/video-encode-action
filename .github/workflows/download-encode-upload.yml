@@ -52,4 +52,4 @@ jobs:
     - name: Upload Encoded File
       run: |
         rm -f ${{ github.event.inputs.input_file }}
-        aws s3 cp ./* s3://$BUCKET_NAME/ --endpoint-url $ENDPOINT_URL --part-size 50MB
+        aws s3 cp ./* s3://$BUCKET_NAME/ --endpoint-url $ENDPOINT_URL --debug
