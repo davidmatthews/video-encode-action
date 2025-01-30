@@ -1,4 +1,4 @@
-name: R2 File Encoding with FFmpeg
+name: Download, Encode, and Upload
 
 on:
   workflow_dispatch:
