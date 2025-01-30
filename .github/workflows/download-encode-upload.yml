@@ -52,4 +52,4 @@ jobs:
     - name: Upload Encoded File
       run: |
         rm ${{ github.event.inputs.input_file }}
-        aws s3 cp output_file.mp4 s3://$BUCKET_NAME/${{ github.event.inputs.output_file_key }}
+        aws s3 cp ./* s3://$BUCKET_NAME/
