@@ -33,6 +33,7 @@ jobs:
       SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
 
     steps:
+      # Install AWS CLI at a specific version - 2.23.6 has issues uploading to R2
       - name: Remove existing AWS CLI (if needed)
         run: |
           sudo rm -rf /usr/local/aws-cli
@@ -61,10 +62,10 @@ jobs:
 
       - name: Encode File with Docker image
         run: |
-          #docker run --rm -v "$(pwd)":/data davidmatthews/handbrake-cli ${{ github.event.inputs.input_file }} ${{ github.event.inputs.preset }} ${{ github.event.inputs.crf }}
-          mv ${{ github.event.inputs.input_file }} renamed-${{ github.event.inputs.input_file }}
+          docker run --rm -v "$(pwd)":/data davidmatthews/handbrake-cli ${{ github.event.inputs.input_file }} ${{ github.event.inputs.preset }} ${{ github.event.inputs.crf }}
 
       - name: Upload Encoded File
         run: |
+          # Remove original file before uploading
           rm -f ${{ github.event.inputs.input_file }}
           aws s3 cp ./ s3://$BUCKET_NAME/ --recursive --endpoint-url $ENDPOINT_URL
